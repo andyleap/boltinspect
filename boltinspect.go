@@ -2,7 +2,6 @@
 package boltinspect
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"strings"
@@ -80,8 +79,6 @@ func (bi *BoltInspect) InspectEndpoint(rw http.ResponseWriter, req *http.Request
 	}
 
 	bucketdata := make([]*bucketData, 0)
-	itemdata := make([]*itemData, 0)
-	fmt.Println(bucketsbyte)
 	bi.db.View(func(tx *bolt.Tx) error {
 		if len(bucketsbyte) == 0 {
 			tx.ForEach(func(k []byte, v *bolt.Bucket) error {
@@ -91,7 +88,7 @@ func (bi *BoltInspect) InspectEndpoint(rw http.ResponseWriter, req *http.Request
 				return nil
 			})
 			bi.Templates.ExecuteTemplate(rw, "inspect.tpl", struct {
-				Items   []*bucketData
+				Items []*bucketData
 			}{
 				bucketdata,
 			})
