@@ -91,11 +91,9 @@ func (bi *BoltInspect) InspectEndpoint(rw http.ResponseWriter, req *http.Request
 				return nil
 			})
 			bi.Templates.ExecuteTemplate(rw, "inspect.tpl", struct {
-				Buckets []*bucketData
-				Items   []*itemData
+				Items   []*bucketData
 			}{
 				bucketdata,
-				itemdata,
 			})
 			return nil
 		}
